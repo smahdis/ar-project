@@ -5,12 +5,14 @@ namespace App\Orchid\Screens;
 use App\Models\Arjob;
 use App\Models\Category;
 use App\Models\Job;
+use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Screen;
 use Orchid\Screen\TD;
+use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 
 class JobListScreen extends Screen
@@ -111,5 +113,17 @@ class JobListScreen extends Screen
 
 
         ];
+    }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function delete(): RedirectResponse
+    {
+        $this->job->delete();
+
+        Alert::info('You have successfully deleted the job.');
+
+        return redirect()->route('platform.job.list');
     }
 }
