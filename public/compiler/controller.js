@@ -1,4 +1,4 @@
-import {memory,nextFrame} from '@tensorflow/tfjs';
+import {memory,nextFrame} from './node_modules/@tensorflow/tfjs';
 
 const tf = {memory,nextFrame};
 import ControllerWorker  from "./controller.worker.js?worker&inline";
@@ -14,7 +14,7 @@ const DEFAULT_WARMUP_TOLERANCE = 5;
 const DEFAULT_MISS_TOLERANCE = 5;
 
 class Controller {
-  constructor({inputWidth, inputHeight, onUpdate=null, debugMode=false, maxTrack=1, 
+  constructor({inputWidth, inputHeight, onUpdate=null, debugMode=false, maxTrack=1,
     warmupTolerance=null, missTolerance=null, filterMinCF=null, filterBeta=null}) {
 
     this.inputWidth = inputWidth;
@@ -234,7 +234,7 @@ class Controller {
 	      }
 	    }
 	  }
-	  
+
 	  // if showing, then count miss, and hide it when reaches tolerance
 	  if (trackingState.showing) {
 	    if (!trackingState.isTracking) {
@@ -250,7 +250,7 @@ class Controller {
 	      trackingState.trackMiss = 0;
 	    }
 	  }
-	  
+
 	  // if showing, then call onUpdate, with world matrix
 	  if (trackingState.showing) {
 	    const worldMatrix = this._glModelViewMatrix(trackingState.currentModelViewTransform, i);
@@ -329,7 +329,7 @@ class Controller {
   _glModelViewMatrix(modelViewTransform, targetIndex) {
     const height = this.markerDimensions[targetIndex][1];
 
-    // Question: can someone verify this interpreation is correct? 
+    // Question: can someone verify this interpreation is correct?
     // I'm not very convinced, but more like trial and error and works......
     //
     // First, opengl has y coordinate system go from bottom to top, while the marker corrdinate goes from top to bottom,
@@ -340,7 +340,7 @@ class Controller {
     //    [0 -1  0  h]
     //    [0  0 -1  0]
     //    [0  0  0  1]
-    //    
+    //
     //    This is tested that if we reverse marker coordinate from bottom to top and estimate the modelViewTransform,
     //    then the above matrix is not necessary.
     //

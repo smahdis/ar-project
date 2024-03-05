@@ -1,4 +1,4 @@
-import * as tf from '@tensorflow/tfjs';
+import * as tf from './node_modules/@tensorflow/tfjs';
 import {buildModelViewProjectionTransform, computeScreenCoordiate} from '../estimation/utils.js';
 
 const AR2_DEFAULT_TS = 6;
@@ -61,8 +61,8 @@ class Tracker {
 
     const markerWidth = this.markerDimensions[targetIndex][0];
     const markerHeight = this.markerDimensions[targetIndex][1];
-    const keyframeWidth = this.trackingKeyframeList[targetIndex].width; 
-    const keyframeHeight = this.trackingKeyframeList[targetIndex].height; 
+    const keyframeWidth = this.trackingKeyframeList[targetIndex].width;
+    const keyframeHeight = this.trackingKeyframeList[targetIndex].height;
 
     const featurePointsT = this.featurePointsListT[targetIndex];
     const imagePixelsT = this.imagePixelsListT[targetIndex];
@@ -144,7 +144,7 @@ class Tracker {
 
 	    if (sx < ${templateOneSize} || sx >= (${targetWidth} - ${templateOneSize}) || sy < ${templateOneSize} || sy >= (${targetHeight} - ${templateOneSize})) {
 	      setOutput(-2.);
-	    } 
+	    }
 	    else {
 	      float sumPoint = 0.;
 	      float sumPointSquare = 0.;
@@ -185,7 +185,7 @@ class Tracker {
 		setOutput(-4.);
 	      } else {
 		sumPointTemplate -= sumPoint / count * sumTemplate;
-		float sim = sumPointTemplate / pointVariance / templateVariance;  
+		float sim = sumPointTemplate / pointVariance / templateVariance;
 		setOutput(sim);
 	      }
 	    }
@@ -297,7 +297,7 @@ class Tracker {
       return result;
     });
   }
-  
+
   _buildAdjustedModelViewTransform(modelViewProjectionTransform) {
     return tf.tidy(() => {
       let modelViewProjectionTransformAdjusted = [];

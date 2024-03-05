@@ -1,4 +1,4 @@
-import {tensor} from '@tensorflow/tfjs'
+import {tensor} from './node_modules/@tensorflow/tfjs'
 
 const cache={};
 function GetProgram(numDogPyramidImages,extremasListLength){
@@ -21,7 +21,7 @@ function GetProgram(numDogPyramidImages,extremasListLength){
 			outputShape: [extremasListLength, 3, 3], // 3x3 pixels around the extrema
 			userCode: `
 			${dogSubCodes}
-		
+
 			void main() {
 				ivec3 coords = getOutputCoords();
 				int featureIndex = coords[0];
@@ -29,7 +29,7 @@ function GetProgram(numDogPyramidImages,extremasListLength){
 				if (score == 0.0) {
 					return;
 				}
-		
+
 				int dy = coords[1]-1;
 				int dx = coords[2]-1;
 				int octave = int(getExtrema(featureIndex, 1));
@@ -51,7 +51,7 @@ export const computeLocalization=(args)=>{
 	const program = GetProgram(dogPyramidImagesT.length,prunedExtremasList.length);
 	const prunedExtremasT = tensor(prunedExtremasList, [prunedExtremasList.length, prunedExtremasList[0].length], 'int32');
 	return backend.runWebGLProgram(program, [...dogPyramidImagesT.slice(1), prunedExtremasT],dogPyramidImagesT[0].dtype);
-	 
+
 }
 
 export const computeLocalizationConfig = {//: KernelConfig

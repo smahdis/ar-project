@@ -1,6 +1,6 @@
 // result should be similar to previou
-// improve freka descriptors computation 
-import * as tf from '@tensorflow/tfjs';
+// improve freka descriptors computation
+import * as tf from './node_modules/@tensorflow/tfjs';
 import { FREAKPOINTS } from './freak.js';
 import './kernels/webgl/index.js';
 const PYRAMID_MIN_SIZE = 8;
@@ -56,9 +56,9 @@ class Detector {
 		return this.detect(img);
 	}
 	/**
-	 * 
-	 * @param {tf.Tensor<tf.Rank>} inputImageT 
-	 * @returns 
+	 *
+	 * @param {tf.Tensor<tf.Rank>} inputImageT
+	 * @returns
 	 */
 	detect(inputImageT) {
 		let debugExtra = null;
@@ -110,7 +110,7 @@ class Detector {
 		const smoothedHistogramsT = this._smoothHistograms(extremaHistogramsT);
 		const extremaAnglesT = this._computeExtremaAngles(smoothedHistogramsT);
 
-		// to compute freak descriptors, we first find the pixel value of 37 freak points for each extrema 
+		// to compute freak descriptors, we first find the pixel value of 37 freak points for each extrema
 		const extremaFreaksT = this._computeExtremaFreak(pyramidImagesT, prunedExtremasT, extremaAnglesT);
 
 		// compute the binary descriptors
@@ -338,9 +338,9 @@ class Detector {
 		});
 	}
 	/**
-	 * 
-	 * @param {tf.Tensor<tf.Rank>} histograms 
-	 * @returns 
+	 *
+	 * @param {tf.Tensor<tf.Rank>} histograms
+	 * @returns
 	 */
 	_computeExtremaAngles(histograms) {
 		/* if (!this.kernelCaches.computeExtremaAngles) {
@@ -371,11 +371,11 @@ class Detector {
 		 * This system of equations is solved for A,B,C.
 		 *
 		float p10 = float(maxIndex - 1);
-		float p11 = getHistogram(featureIndex, prev); 
+		float p11 = getHistogram(featureIndex, prev);
 		float p20 = float(maxIndex);
-		float p21 = getHistogram(featureIndex, maxIndex); 
+		float p21 = getHistogram(featureIndex, maxIndex);
 		float p30 = float(maxIndex + 1);
-		float p31 = getHistogram(featureIndex, next); 
+		float p31 = getHistogram(featureIndex, next);
 
 		float d1 = (p30-p20)*(p30-p10);
 		float d2 = (p10-p20)*(p30-p10);
@@ -410,10 +410,10 @@ class Detector {
 
 	// TODO: maybe can try just using average momentum, instead of histogram method. histogram might be overcomplicated
 	/**
-	 * 
-	 * @param {tf.Tensor<tf.Rank>} prunedExtremasT 
-	 * @param {tf.Tensor<tf.Rank>[]} pyramidImagesT 
-	 * @returns 
+	 *
+	 * @param {tf.Tensor<tf.Rank>} prunedExtremasT
+	 * @param {tf.Tensor<tf.Rank>[]} pyramidImagesT
+	 * @returns
 	 */
 	_computeOrientationHistograms(prunedExtremasT, pyramidImagesT) {
 		const oneOver2PI = 0.159154943091895;
@@ -495,7 +495,7 @@ class Detector {
 
 		if (propertyIndex == 0) {
 		  // be careful that atan(0, 0) gives 1.57 instead of 0 (different from js), but doesn't matter here, coz magnitude is 0
-		  
+
 		  float angle = atan(dy, dx) + ${Math.PI};
 		  float fbin = angle * ${ORIENTATION_NUM_BINS}. * ${oneOver2PI};
 		  setOutput(fbin);
@@ -553,7 +553,7 @@ class Detector {
 		return tf.tidy(() => {
 			/* const [program1, program2] = this.kernelCaches.computeOrientationHistograms;
 			const result1 = this._compileAndRun(program1, [...gaussianImagesT, prunedExtremasT, radialPropertiesT]);
-			const result2 = this._compileAndRun(program2, [result1]); 
+			const result2 = this._compileAndRun(program2, [result1]);
 			return result2;*/
 			return tf.engine().runKernel('ComputeOrientationHistograms', { gaussianImagesT, prunedExtremasT, radialPropertiesT, pyramidImagesLength: pyramidImagesT.length });
 		});
@@ -593,15 +593,15 @@ class Detector {
 		});
 	}
 	/**
-	 * 
-	 * @param {number[][]} prunedExtremasList 
-	 * @param {tf.Tensor<tf.Rank>[]} dogPyramidImagesT 
-	 * @returns 
+	 *
+	 * @param {number[][]} prunedExtremasList
+	 * @param {tf.Tensor<tf.Rank>[]} dogPyramidImagesT
+	 * @returns
 	 */
 	_computeLocalization(prunedExtremasList, dogPyramidImagesT) {
 		/*  if (!this.kernelCaches.computeLocalization) {
 		   const dogVariableNames = [];
-	 
+
 		   let dogSubCodes = `float getPixel(int octave, int y, int x) {`;
 		   for (let i = 1; i < dogPyramidImagesT.length; i++) {  // extrema starts from second octave
 		 dogVariableNames.push('image' + i);
@@ -612,13 +612,13 @@ class Detector {
 		   `;
 		   }
 		   dogSubCodes += `}`;
-	 
+
 		   const kernel = {
 		 variableNames: [...dogVariableNames, 'extrema'],
 		 outputShape: [prunedExtremasList.length, 3, 3], // 3x3 pixels around the extrema
 		 userCode: `
 		   ${dogSubCodes}
-	 
+
 		   void main() {
 			 ivec3 coords = getOutputCoords();
 			 int featureIndex = coords[0];
@@ -626,7 +626,7 @@ class Detector {
 			 if (score == 0.0) {
 			   return;
 			 }
-	 
+
 			 int dy = coords[1]-1;
 			 int dx = coords[2]-1;
 			 int octave = int(getExtrema(featureIndex, 1));
@@ -636,7 +636,7 @@ class Detector {
 		   }
 		 `
 		   }
-	 
+
 		   this.kernelCaches.computeLocalization = [kernel];
 		 } */
 
@@ -698,9 +698,9 @@ class Detector {
 	// if we do in gpu, we probably need to use tf.topk(), which seems to be run in CPU anyway (no gpu operation for that)
 	//  TODO: research adapative maximum supression method
 	/**
-	 * 
-	 * @param {tf.Tensor<tf.Rank>[]} extremasResultsT 
-	 * @returns 
+	 *
+	 * @param {tf.Tensor<tf.Rank>[]} extremasResultsT
+	 * @returns
 	 */
 	_applyPrune(extremasResultsT) {
 		const nBuckets = NUM_BUCKETS_PER_DIMENSION * NUM_BUCKETS_PER_DIMENSION;
@@ -708,13 +708,13 @@ class Detector {
 		/*
 		if (!this.kernelCaches.applyPrune) {
 		  const reductionKernels = [];
-	
+
 		  // to reduce to amount of data that need to sync back to CPU by 4 times, we apply this trick:
 		  // the fact that there is not possible to have consecutive maximum/minimum, we can safe combine 4 pixels into 1
 		  for (let k = 0; k < extremasResultsT.length; k++) {
 			const extremaHeight = extremasResultsT[k].shape[0];
 			const extremaWidth = extremasResultsT[k].shape[1];
-	
+
 			const kernel = {
 				variableNames: ['extrema'],
 				outputShape: [Math.floor(extremaHeight/2), Math.floor(extremaWidth/2)],
@@ -723,10 +723,10 @@ class Detector {
 						ivec2 coords = getOutputCoords();
 						int y = coords[0] * 2;
 						int x = coords[1] * 2;
-	
+
 						float location = 0.0;
 						float values = getExtrema(y, x);
-	
+
 						if (getExtrema(y+1, x) != 0.0) {
 							location = 1.0;
 						values = getExtrema(y+1, x);
@@ -739,7 +739,7 @@ class Detector {
 							location = 3.0;
 						values = getExtrema(y+1, x+1);
 						}
-	
+
 						if (values < 0.0) {
 							setOutput(location * -1000.0 + values);
 						} else {
@@ -927,10 +927,10 @@ class Detector {
 		});
 	}
 	/**
-	 * 
-	 * @param {tf.Tensor<tf.Rank>} image1 
-	 * @param {tf.Tensor<tf.Rank>} image2 
-	 * @returns 
+	 *
+	 * @param {tf.Tensor<tf.Rank>} image1
+	 * @param {tf.Tensor<tf.Rank>} image2
+	 * @returns
 	 */
 	_differenceImageBinomial(image1, image2) {
 		return tf.tidy(() => {
@@ -990,7 +990,7 @@ class Detector {
 			/* const [program1, program2] = this.kernelCaches.applyFilter[kernelKey];
 
 			 const result1 = this._compileAndRun(program1, [image]);
-			const result2 = this._compileAndRun(program2, [result1]); 
+			const result2 = this._compileAndRun(program2, [result1]);
 			return result2; */
 			return tf.engine().runKernel('BinomialFilter', { image });
 		});
@@ -1015,7 +1015,7 @@ class Detector {
 		int j = coords[0];
 		int i = coords[1];
 
-		float sj = 0.5 * float(j) - 0.25; 
+		float sj = 0.5 * float(j) - 0.25;
 		float si = 0.5 * float(i) - 0.25;
 
 		float sj0 = floor(sj);
@@ -1066,8 +1066,8 @@ class Detector {
 		int x = coords[1] * 2;
 
 		float sum = getP(y, x) * 0.25;
-		sum += getP(y+1,x) * 0.25; 
-		sum += getP(y, x+1) * 0.25; 
+		sum += getP(y+1,x) * 0.25;
+		sum += getP(y, x+1) * 0.25;
 		sum += getP(y+1,x+1) * 0.25;
 		setOutput(sum);
 	  }
@@ -1083,10 +1083,10 @@ class Detector {
 		});
 	}
 	/**
-	 * 
-	 * @param {tf.MathBackendWebGL.GPGPUProgram} program 
-	 * @param {*} inputs 
-	 * @returns 
+	 *
+	 * @param {tf.MathBackendWebGL.GPGPUProgram} program
+	 * @param {*} inputs
+	 * @returns
 	 */
 	_compileAndRun(program, inputs) {
 		const outInfo = tf.backend().compileAndRun(program, inputs);

@@ -1,6 +1,6 @@
 
 import * as FakeShader from './fakeShader.js';
-import {engine} from '@tensorflow/tfjs'
+import {engine} from './node_modules/@tensorflow/tfjs'
 const FREAK_EXPANSION_FACTOR = 7.0;
 
 const LAPLACIAN_THRESHOLD = 3.0;
@@ -82,7 +82,7 @@ function GetProgram(image) {
       }
 
   };
-  
+
 
   return kernel;
 }

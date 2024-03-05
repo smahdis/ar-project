@@ -1,14 +1,14 @@
-import {tensor} from '@tensorflow/tfjs'
+import {tensor} from './node_modules/@tensorflow/tfjs'
 import * as FakeShader from './fakeShader.js';
 
 function GetProgram(numDogPyramidImages, extremasListLength) {
-	
+
 	const dogVariableNames = [];
-	
-	for (let i = 1; i < numDogPyramidImages; i++) {  
+
+	for (let i = 1; i < numDogPyramidImages; i++) {
 		dogVariableNames.push('image' + i);
 	}
-	
+
 
 	const program = {
 		variableNames: [...dogVariableNames, 'extrema'],
@@ -58,7 +58,7 @@ export const computeLocalization = (args) => {
 	const { prunedExtremasList, dogPyramidImagesT } = args.inputs;
 	/** @type {MathBackendCPU} */
 	const backend = args.backend;
-	
+
 	const program = GetProgram(dogPyramidImagesT.length, prunedExtremasList.length);
 	const prunedExtremasT = tensor(prunedExtremasList, [prunedExtremasList.length, prunedExtremasList[0].length], 'int32');
 	return FakeShader.runCode(backend, program, [...dogPyramidImagesT.slice(1), prunedExtremasT], dogPyramidImagesT[0].dtype);

@@ -1,4 +1,4 @@
-import * as tf from '@tensorflow/tfjs';
+import * as tf from './node_modules/@tensorflow/tfjs';
 import {Detector} from './detector.js';
 import {buildModelViewProjectionTransform, computeScreenCoordiate} from '../estimation/utils.js';
 
@@ -8,9 +8,9 @@ class CropDetector {
     this.width = width;
     this.height = height;
 
-    // nearest power of 2, min dimensions 
+    // nearest power of 2, min dimensions
     let minDimension = Math.min(width, height) / 2;
-    let cropSize = Math.pow( 2, Math.round( Math.log( minDimension ) / Math.log( 2 ) ) ); 
+    let cropSize = Math.pow( 2, Math.round( Math.log( minDimension ) / Math.log( 2 ) ) );
     this.cropSize = cropSize;
 
     this.detector = new Detector(cropSize, cropSize, debugMode);
@@ -25,7 +25,7 @@ class CropDetector {
     const result = this._detect(inputImageT, startX, startY);
 
     if (this.debugMode) {
-      result.debugExtra.crop = {startX, startY, cropSize: this.cropSize}; 
+      result.debugExtra.crop = {startX, startY, cropSize: this.cropSize};
     }
     return result;
   }

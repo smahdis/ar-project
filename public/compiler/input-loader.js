@@ -1,9 +1,9 @@
-import * as tf from '@tensorflow/tfjs';
+import * as tf from './node_modules/@tensorflow/tfjs';
 
 // More efficient implementation for tf.browser.fromPixels
 //   original implementation: /node_modules/@tensorflow/tfjs-backend-webgl/src/kernels/FromPixels.ts
-// 
-// This implementation return grey scale instead of RGBA in the orignal implementation 
+//
+// This implementation return grey scale instead of RGBA in the orignal implementation
 
 class InputLoader {
   constructor(width, height) {
@@ -22,7 +22,7 @@ class InputLoader {
     //this.tempPixelHandle = backend.makeTensorInfo(this.texShape, 'int32');
     this.tempPixelHandle = backend.makeTensorInfo(this.texShape, 'float32');
     // warning!!!
-    // usage type should be TextureUsage.PIXELS, but tfjs didn't export this enum type, so we hard-coded 2 here 
+    // usage type should be TextureUsage.PIXELS, but tfjs didn't export this enum type, so we hard-coded 2 here
     //   i.e. backend.texData.get(tempPixelHandle.dataId).usage = TextureUsage.PIXELS;
     backend.texData.get(this.tempPixelHandle.dataId).usage = 2;
   }

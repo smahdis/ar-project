@@ -1,4 +1,4 @@
-import { registerKernel } from '@tensorflow/tfjs';
+import { registerKernel } from './node_modules/@tensorflow/tfjs';
 import { binomialFilterConfig } from './binomialFilter.js';
 import { buildExtremasConfig } from './buildExtremas.js';
 import { computeExtremaAnglesConfig } from './computeExtremaAngles.js';
