@@ -40,12 +40,14 @@ class JobEditLayout extends Rows
             Upload::make('job.mind_file')
                 ->title(__('Mind File'))
                 ->maxFiles(1)
+//                ->maxFileSize(100)
                 ->horizontal(),
 
             Upload::make('job.video')
                 ->title('Video File')
 //                ->multiple(false)
                 ->maxFiles(1)
+//                ->maxFileSize(100)
                 ->horizontal(),
 
             Input::make('job.width_aspect')

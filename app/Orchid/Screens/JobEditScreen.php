@@ -104,7 +104,7 @@ class JobEditScreen extends Screen
      *
      * @return RedirectResponse
      */
-    public function createOrUpdate(Arjob $job, Request $request): RedirectResponse
+    public function createOrUpdate(Request $request): RedirectResponse
     {
 
         $request->validate([
@@ -120,17 +120,17 @@ class JobEditScreen extends Screen
         $data['mind_file'] = isset($data['mind_file']) ? $data['mind_file'][0] : "";
         $data['user_id'] = auth()->user()->id;
 
-        $job->fill($data)->save();
-        $job->attachment()->syncWithoutDetaching(
+        $this->job->fill($data)->save();
+        $this->job->attachment()->syncWithoutDetaching(
             $request->input('job.video', [])
         );
-        $job->attachment()->syncWithoutDetaching(
+        $this->job->attachment()->syncWithoutDetaching(
             $request->input('job.mind_file', [])
         );
 
-        if(!isset($job->generated_id)){
-            $job->generated_id = $job::generateId();
-            $job->save();
+        if(!isset($this->job->generated_id)){
+            $this->job->generated_id = $this->job::generateId();
+            $this->job->save();
         }
 
         Alert::info('You have successfully updated/created the job.');
