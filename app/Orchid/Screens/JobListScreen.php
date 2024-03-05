@@ -116,14 +116,16 @@ class JobListScreen extends Screen
     }
 
     /**
-     * @return RedirectResponse
+     * @param Arjob $job
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function delete(Arjob $job): RedirectResponse
+    public function delete($id)
     {
-        $job->delete();
-
-        Alert::info('You have successfully deleted the job.');
-
+        Arjob::destroy($id);
+        Alert::info('You have successfully deleted the item.');
         return redirect()->route('platform.job.list');
     }
+
 }
