@@ -118,9 +118,9 @@ class JobListScreen extends Screen
     /**
      * @return RedirectResponse
      */
-    public function delete(): RedirectResponse
+    public function delete(Arjob $job): RedirectResponse
     {
-        $this->job->delete();
+        $job->delete();
 
         Alert::info('You have successfully deleted the job.');
 
