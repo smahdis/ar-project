@@ -47,12 +47,12 @@ class JobEditLayout extends Rows
 //                ->maxFileSize(100)
                 ->horizontal(),
 
-            Upload::make('job.video')
-                ->title('Video File')
+//            Upload::make('job.video')
+//                ->title('Video File')
 //                ->multiple(false)
-                ->maxFiles(1)
+//                ->maxFiles(1)
 //                ->maxFileSize(100)
-                ->horizontal(),
+//                ->horizontal(),
 
             Matrix::make('job.related_videos')
                 ->title('Related Videos')
