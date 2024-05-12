@@ -23,6 +23,11 @@ class Arjob extends Model
         'user_id',
         'mind_file',
         'generated_id',
+        'related_videos',
+    ];
+
+    protected $casts = [
+        'related_videos' => 'array',
     ];
 
     public static function generateId(int $length = 8): string

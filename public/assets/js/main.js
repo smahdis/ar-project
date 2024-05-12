@@ -11,16 +11,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const {renderer, scene, camera} = mindarThree;
 
+    for (const media of window.mediaFiles) {
+        const index = window.mediaFiles.indexOf(media);
+        const video = await loadVideo(media);
+        const texture = new THREE.VideoTexture(video);
+        const geometry = new THREE.PlaneGeometry(window.width_aspect, window.height_aspect);
+        const material = new THREE.MeshBasicMaterial({map: texture});
+        const plane = new THREE.Mesh(geometry, material);
+        const anchor = mindarThree.addAnchor(0);
+        anchor.group.add(plane);
+        anchor.onTargetFound = () => {
+            //console.log('Start 1 video');
+            video.play();
+        }
+        anchor.onTargetLost = () => {
+            video.pause();
+        }
+    }
+
 //light is needed when we use 3D objects (δεν χρειάζεται το φως)
     //const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
     //scene.add(light);
 
      // load and create the first video plane
-  const video1 = await loadVideo(window.mediaFile);
-  const texture1 = new THREE.VideoTexture(video1);
-  const geometry1 = new THREE.PlaneGeometry(window.width_aspect, window.height_aspect);
-  const material1 = new THREE.MeshBasicMaterial({map: texture1});
-  const plane1 = new THREE.Mesh(geometry1, material1);
+  // const video1 = await loadVideo(window.mediaFile);
+  // const texture1 = new THREE.VideoTexture(video1);
+  // const geometry1 = new THREE.PlaneGeometry(window.width_aspect, window.height_aspect);
+  // const material1 = new THREE.MeshBasicMaterial({map: texture1});
+  // const plane1 = new THREE.Mesh(geometry1, material1);
 
   // load and create the second video plane
   // const video2 = await loadVideo("./assets/videos/asset.mp4");
@@ -37,16 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // const plane3 = new THREE.Mesh(geometry3, material3);
 
   // add the first video plane to an anchor
-  const anchor1 = mindarThree.addAnchor(0);
-  anchor1.group.add(plane1);
-
-  anchor1.onTargetFound = () => {
-    //console.log('Start 1 video');
-    video1.play();
-  }
-  anchor1.onTargetLost = () => {
-    video1.pause();
-  }
+  // const anchor1 = mindarThree.addAnchor(0);
+  // anchor1.group.add(plane1);
+  //
+  // anchor1.onTargetFound = () => {
+  //   console.log('Start 1 video');
+    // video1.play();
+  // }
+  // anchor1.onTargetLost = () => {
+  //   video1.pause();
+  // }
   // video1.addEventListener( 'play', () => {
   //   video1.currentTime = 18;
   // });

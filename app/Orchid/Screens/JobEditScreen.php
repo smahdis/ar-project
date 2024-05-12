@@ -6,6 +6,8 @@ use App\Models\Arjob;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\Event;
+use App\Models\EventRelatedGroup;
+use App\Models\JobRelatedVideo;
 use App\Orchid\Layouts\Category\CategoryEditLayout;
 use App\Orchid\Layouts\Category\CategoryEditTranslationEnglishLayout;
 use App\Orchid\Layouts\Category\CategoryEditTranslationGeorgianLayout;
@@ -131,6 +133,30 @@ class JobEditScreen extends Screen
         if(!isset($this->job->generated_id)){
             $this->job->generated_id = $this->job::generateId();
             $this->job->save();
+        }
+
+//        var_dump(json_encode($data['related_videos']));
+//        die();
+
+        if($this->job->wasChanged('related_videos')) {
+//        if(!empty($data['related_videos'])) {
+            JobRelatedVideo::where('arjob_id', $this->job->id)
+                ->update([
+                    'status' => -1
+                ]);
+            foreach ($data['related_videos'] as $related_video) {
+//                var_dump($related_video);
+//                die();
+//                foreach ($related_video['To'] as $to_group) {
+                    $jrv = JobRelatedVideo::create([
+                        'arjob_id' => $this->job->id,
+                        'video_file' => $related_video['Video'][0],
+                    ]);
+                    $jrv->attachment()->syncWithoutDetaching(
+                        $related_video['Video'][0]
+                    );
+//                }
+            }
         }
 
         Alert::info('You have successfully updated/created the job.');

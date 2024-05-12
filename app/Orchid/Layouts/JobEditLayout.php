@@ -2,8 +2,12 @@
 
 namespace App\Orchid\Layouts;
 
+use App\Models\Group;
 use Orchid\Screen\Fields\Cropper;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Matrix;
+use Orchid\Screen\Fields\Relation;
+use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Fields\Upload;
 use Orchid\Screen\Layouts\Rows;
@@ -49,6 +53,17 @@ class JobEditLayout extends Rows
                 ->maxFiles(1)
 //                ->maxFileSize(100)
                 ->horizontal(),
+
+            Matrix::make('job.related_videos')
+                ->title('Related Videos')
+                ->columns(['Video'])
+                ->fields([
+                    'Video' => Upload::make()
+                        ->title('Video File')
+                        ->maxFiles(1)
+                        ->horizontal(),
+//                    'To'   => Relation::make()->fromModel(Group::class, 'name')->multiple()->required(),
+                ]),
 
             Input::make('job.width_aspect')
                 ->required()

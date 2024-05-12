@@ -5,7 +5,12 @@
     <script src="{{ asset('/assets/js/mindar-image-three.prod.js') }}"></script>
     <script>
         window.mindFile = "{{$job->attachment()->where('attachments.id', $job->mind_file)->first()->relativeUrl}}";
-        window.mediaFile = "{{$job->attachment()->where('attachments.id', $job->video)->first()->relativeUrl}}";
+{{--        window.mediaFile = "{{$job->attachment()->where('attachments.id', $job->video)->first()->relativeUrl}}";--}}
+        window.mediaFiles = [];
+        @foreach($job->videos as $key => $video)
+            window.mediaFiles.push("{{$video->attachment()->where('attachments.id', $video->video_file)->first()->relativeUrl}}");
+        @endforeach
+
         window.width_aspect = "{{$job->width_aspect}}";
         window.height_aspect = "{{$job->height_aspect}}";
 
