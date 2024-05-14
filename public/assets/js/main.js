@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ar['geometry' + index] = new THREE.PlaneGeometry(window.width_aspect, window.height_aspect);
         ar['material' + index] = new THREE.MeshBasicMaterial({map: ar['texture' + index]});
         ar['plane' + index] = new THREE.Mesh(ar['geometry' + index], ar['material' + index]);
-        ar['anchor' + index] = mindarThree.addAnchor(0);
+        ar['anchor' + index] = mindarThree.addAnchor(index);
 
         ar['anchor' + index].group.add(ar['plane' + index]);
         ar['anchor' + index].onTargetFound = () => {
@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ar['video' + index].pause();
         }
     }
+
+    console.log('ar', ar);
 
 //light is needed when we use 3D objects (δεν χρειάζεται το φως)
     //const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
