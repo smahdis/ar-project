@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ar['plane' + index] = new THREE.Mesh(ar['geometry' + index], ar['material' + index]);
         ar['anchor' + index] = mindarThree.addAnchor(0);
 
-        ar['anchor' + index].group.add(ar[index]['plane']);
+        ar['anchor' + index].group.add(ar['plane' + index]);
         ar['anchor' + index].onTargetFound = () => {
             //console.log('Start 1 video');
             ar['video' + index].play();
