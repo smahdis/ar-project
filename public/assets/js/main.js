@@ -11,23 +11,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const {renderer, scene, camera} = mindarThree;
 
-    const ar = [];
+    let ar = [];
     for (const media of window.mediaFiles) {
         const index = window.mediaFiles.indexOf(media);
-        ar[index]['video'] = await loadVideo(media);
-        ar[index]['texture'] = new THREE.VideoTexture(video);
-        ar[index]['geometry'] = new THREE.PlaneGeometry(window.width_aspect, window.height_aspect);
-        ar[index]['material'] = new THREE.MeshBasicMaterial({map: texture});
-        ar[index]['plane'] = new THREE.Mesh(geometry, material);
-        ar[index]['anchor'] = mindarThree.addAnchor(0);
+        ar['video' + index] = await loadVideo(media);
+        ar['texture' + index] = new THREE.VideoTexture(ar['video' + index]);
+        ar['geometry' + index] = new THREE.PlaneGeometry(window.width_aspect, window.height_aspect);
+        ar['material' + index] = new THREE.MeshBasicMaterial({map: ar['texture' + index]});
+        ar['plane' + index] = new THREE.Mesh(ar['geometry' + index], ar['material' + index]);
+        ar['anchor' + index] = mindarThree.addAnchor(0);
 
-        ar[index]['anchor'].group.add(ar[index]['plane']);
-        ar[index]['anchor'].onTargetFound = () => {
+        ar['anchor' + index].group.add(ar[index]['plane']);
+        ar['anchor' + index].onTargetFound = () => {
             //console.log('Start 1 video');
-            ar[index]['video'].play();
+            ar['video' + index].play();
         }
-        ar[index]['anchor'].onTargetLost = () => {
-            ar[index]['video'].pause();
+        ar['anchor' + index].onTargetLost = () => {
+            ar['video' + index].pause();
         }
     }
 
