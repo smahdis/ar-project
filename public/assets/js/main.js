@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         console.log('index', ar['video' + index]);
         console.log('index', 'video' + index);
+        ar['video' + index].play();
         index = index +  1;
     }
     window.ar = ar;
