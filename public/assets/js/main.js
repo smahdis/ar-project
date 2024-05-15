@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ar['anchor' + index].onTargetLost = () => {
             ar['video' + index].pause();
         }
+        console.log('index', ar['video' + index]);
+        console.log('index', 'video' + index);
         index = index +  1;
     }
     window.ar = ar;
