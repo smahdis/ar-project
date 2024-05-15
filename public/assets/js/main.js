@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const {renderer, scene, camera} = mindarThree;
 
     let ar = [];
+    let index = 0;
     for (const media of window.mediaFiles) {
-        const index = window.mediaFiles.indexOf(media.media_file);
+        // const index = window.mediaFiles.indexOf(media.media_file);
         ar['video' + index] = await loadVideo(media.media_file);
         ar['texture' + index] = new THREE.VideoTexture(ar['video' + index]);
         ar['geometry' + index] = new THREE.PlaneGeometry(media.width_aspect, window.height_aspect);
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ar['anchor' + index].onTargetLost = () => {
             ar['video' + index].pause();
         }
+        index = index +  1;
     }
 
     console.log('ar', ar);
