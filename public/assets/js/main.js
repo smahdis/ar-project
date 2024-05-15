@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         index = index +  1;
     }
-
+    window.ar = ar;
     console.log('ar', ar);
 
 //light is needed when we use 3D objects (δεν χρειάζεται το φως)
