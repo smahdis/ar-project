@@ -14,6 +14,9 @@ class JobRelatedVideo extends Model
     protected $fillable = [
         'arjob_id',
         'video_file',
+        'width_aspect',
+        'height_aspect',
+        'video_file',
         'status'
     ];
 

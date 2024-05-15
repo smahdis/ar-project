@@ -12,11 +12,15 @@ use App\Orchid\Layouts\Category\CategoryEditLayout;
 use App\Orchid\Layouts\Category\CategoryEditTranslationEnglishLayout;
 use App\Orchid\Layouts\Category\CategoryEditTranslationGeorgianLayout;
 use App\Orchid\Layouts\JobEditLayout;
+use App\Orchid\Layouts\JobEditVideoLayout;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Matrix;
+use Orchid\Screen\Fields\Upload;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
@@ -89,14 +93,17 @@ class JobEditScreen extends Screen
             ])
                 ->title(__('Ar Jobs'))
                 ->description(__('These info are shown in job\'s details page and they require translation.')),
-
-//            Layout::block([
-//                CategoryEditLayout::class,
-//            ])
-//                ->title(__('Other Category Info'))
-//                ->description(__('These section is common between all languages and does not require translation.'))
-
+            JobEditVideoLayout::class,
         ];
+    }
+
+    /**
+     * Remove the first and last quote from a quoted string of text
+     *
+     * @param mixed $text
+     */
+    function stripQuotes($text) {
+        return preg_replace('/^(\'[^\']*\'|"[^"]*")$/', '$2$3', $text);
     }
 
 
@@ -111,8 +118,8 @@ class JobEditScreen extends Screen
 
         $request->validate([
             'job.title' => 'required|max:255',
-            'job.width_aspect' => 'required',
-            'job.height_aspect' => 'required',
+//            'job.width_aspect' => 'required',
+//            'job.height_aspect' => 'required',
             'job.photo' => 'required|max:255',
 //            'job.video' => 'required|max:255',
         ]);
@@ -122,10 +129,22 @@ class JobEditScreen extends Screen
         $data['mind_file'] = isset($data['mind_file']) ? $data['mind_file'][0] : "";
         $data['user_id'] = auth()->user()->id;
 
+
+        $data['related_videos'] = array_values($data['related_videos']);
+//        $data['related_videos'] = substr($dataList, 1, -1);
+
+//        var_dump($data['related_videos']);
+//        var_dump(json_encode($data['related_videos']), true);
+//        die();
+
+//        var_dump(trim($data['related_videos'],'"'));
+//        die();
+
+
         $this->job->fill($data)->save();
-        $this->job->attachment()->syncWithoutDetaching(
-            $request->input('job.video', [])
-        );
+//        $this->job->attachment()->syncWithoutDetaching(
+//            $request->input('job.video', [])
+//        );
         $this->job->attachment()->syncWithoutDetaching(
             $request->input('job.mind_file', [])
         );
@@ -135,8 +154,7 @@ class JobEditScreen extends Screen
             $this->job->save();
         }
 
-//        var_dump(json_encode($data['related_videos']));
-//        die();
+
 
         if($this->job->wasChanged('related_videos')) {
 //        if(!empty($data['related_videos'])) {
@@ -145,18 +163,23 @@ class JobEditScreen extends Screen
                     'status' => -1
                 ]);
             foreach ($data['related_videos'] as $related_video) {
-//                var_dump($related_video);
-//                die();
+//                var_dump($related_video['Width']);
 //                foreach ($related_video['To'] as $to_group) {
                     $jrv = JobRelatedVideo::create([
                         'arjob_id' => $this->job->id,
-                        'video_file' => $related_video['Video'][0],
+                        'video_file' => isset($related_video['Video']) ? $related_video['Video'][0] : "",
+                        'width_aspect' => isset($related_video['Width']) ? $related_video['Width'] : "",
+                        'height_aspect' => isset($related_video['Height']) ? $related_video['Height'] : "",
                     ]);
-                    $jrv->attachment()->syncWithoutDetaching(
-                        $related_video['Video'][0]
-                    );
+                    if(isset($related_video['Video'])) {
+                        $jrv->attachment()->syncWithoutDetaching(
+                            $related_video['Video'][0]
+                        );
+                    }
 //                }
             }
+//            die();
+
         }
 
         Alert::info('You have successfully updated/created the job.');

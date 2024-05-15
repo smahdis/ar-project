@@ -8,7 +8,11 @@
 {{--        window.mediaFile = "{{$job->attachment()->where('attachments.id', $job->video)->first()->relativeUrl}}";--}}
         window.mediaFiles = [];
         @foreach($job->videos as $key => $video)
-            window.mediaFiles.push("{{$video->attachment()->where('attachments.id', $video->video_file)->first()->relativeUrl}}");
+            window.mediaFiles.push({
+                media_file: "{{$video->attachment()->where('attachments.id', $video->video_file)->first()->relativeUrl}}",
+                width_aspect: {{$video->width_aspect}},
+                height_aspect: {{$video->height_aspect}}
+            });
         @endforeach
 
         window.width_aspect = "{{$job->width_aspect}}";

@@ -54,28 +54,43 @@ class JobEditLayout extends Rows
 //                ->maxFileSize(100)
 //                ->horizontal(),
 
-            Matrix::make('job.related_videos')
-                ->title('Related Videos')
-                ->columns(['Video'])
-                ->fields([
-                    'Video' => Upload::make()
-                        ->title('Video File')
-                        ->maxFiles(1)
-                        ->horizontal(),
-//                    'To'   => Relation::make()->fromModel(Group::class, 'name')->multiple()->required(),
-                ]),
+//            Matrix::make('job.related_videos')
+//                ->title('Related Videos')
+//                ->columns(['Video', 'Width', 'Height'])
+//                ->fields([
+//
+//                    'Video' => Upload::make()
+////                        ->title('Video File')
+//                        ->maxFiles(1)
+////                        ->style(["border" => "1px solid #000"])
+//                        ->horizontal(),
+//
+//                    'Width_Aspect' => Input::make()
+//                        ->required()
+//                        ->title(__('Width aspect ratio'))
+//                        ->value(1)
+//                        ->placeholder(__('Job Title')),
+//
+//                    'Height_Aspect' => Input::make()
+//                        ->required()
+//                        ->title(__('Height aspect ratio'))
+//                        ->value(1)
+//                        ->placeholder(__('Job Title')),
+//
+////                    'To'   => Relation::make()->fromModel(Group::class, 'name')->multiple()->required(),
+//                ]),
 
-            Input::make('job.width_aspect')
-                ->required()
-                ->title(__('Width aspect ratio'))
-                ->value(1)
-                ->placeholder(__('Job Title')),
-
-            Input::make('job.height_aspect')
-                ->required()
-                ->title(__('Height aspect ratio'))
-                ->value(1)
-                ->placeholder(__('Job Title')),
+//            Input::make('job.width_aspect')
+//                ->required()
+//                ->title(__('Width aspect ratio'))
+//                ->value(1)
+//                ->placeholder(__('Job Title')),
+//
+//            Input::make('job.height_aspect')
+//                ->required()
+//                ->title(__('Height aspect ratio'))
+//                ->value(1)
+//                ->placeholder(__('Job Title')),
 
 
         ];

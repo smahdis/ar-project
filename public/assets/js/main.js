@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let ar = [];
     for (const media of window.mediaFiles) {
-        const index = window.mediaFiles.indexOf(media);
-        ar['video' + index] = await loadVideo(media);
+        const index = window.mediaFiles.indexOf(media.media_file);
+        ar['video' + index] = await loadVideo(media.media_file);
         ar['texture' + index] = new THREE.VideoTexture(ar['video' + index]);
-        ar['geometry' + index] = new THREE.PlaneGeometry(window.width_aspect, window.height_aspect);
+        ar['geometry' + index] = new THREE.PlaneGeometry(media.width_aspect, window.height_aspect);
         ar['material' + index] = new THREE.MeshBasicMaterial({map: ar['texture' + index]});
         ar['plane' + index] = new THREE.Mesh(ar['geometry' + index], ar['material' + index]);
         ar['anchor' + index] = mindarThree.addAnchor(index);
