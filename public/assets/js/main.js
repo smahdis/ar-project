@@ -24,15 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ar['anchor' + index].group.add(ar['plane' + index]);
         ar['anchor' + index].onTargetFound = () => {
-            //console.log('Start 1 video');
+            console.log('index', ar['video' + index]);
+            console.log('index', 'video' + index);
             ar['video' + index].play();
         }
         ar['anchor' + index].onTargetLost = () => {
             ar['video' + index].pause();
         }
-        console.log('index', ar['video' + index]);
-        console.log('index', 'video' + index);
-        ar['video' + index].play();
+
+        // ar['video' + index].play();
         index = index +  1;
     }
     window.ar = ar;
