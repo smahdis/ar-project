@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let functionName = 'playVideo' + index;
 
-        ar['anchor' + index].onTargetFound = functionName;
+        ar['anchor' + index].onTargetFound = window[functionName];
         ar['anchor' + index].onTargetLost = 'playVideo' + index;
 
         window[functionName] = function() {
