@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let ar = [];
     let index = 0;
-  window.ar = ar;
+    window.ar = ar;
+
     for (const media of window.mediaFiles) {
         // const index = window.mediaFiles.indexOf(media.media_file);
         ar['video' + index] = await loadVideo(media.media_file);
@@ -27,19 +28,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('index', ar['video' + index]);
 
-        ar['anchor' + index].onTargetFound = 'playVideo' + index;
+        let functionName = 'playVideo' + index;
+
+        ar['anchor' + index].onTargetFound = functionName;
         ar['anchor' + index].onTargetLost = 'playVideo' + index;
 
-        function nameFunction(name, body) {
-            return {[name](...args) {return body.apply(this, args)}}[name]
+        window[functionName] = function() {
+            ar['video' + index].play();
         }
 
-        const x = nameFunction("playVideo" + index, function (index) {
-            return ar['video' + index].play();
-        });
+        // function nameFunction(name, body) {
+        //     return {[name](...args) {return body.apply(this, args)}}[name]
+        // }
+        //
+        // const x = nameFunction("playVideo" + index, function (index) {
+        //     return ar['video' + index].play();
+        // });
 
         // console.log('playVideo' + index);
-        video0();
+        // video0();
         // x();
         // console.log(x(9)) // => 18
         // console.log(x.name) // => "wonderful function"
