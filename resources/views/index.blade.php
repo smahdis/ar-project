@@ -21,7 +21,7 @@
         {{--mindFile = {{$job->mind_file}};--}}
         {{--mediaFile = {{$job->video}};--}}
     </script>
-    <script src="{{ asset('/assets/js/main.js') }}?v=<?php echo rand(10,100); ?>" type="module"></script>
+    <script src="{{ asset('/assets/js/main.js') }}?v=<?php echo rand(10,10000); ?>" type="module"></script>
     <style>
         html, body {position: relative; margin: 0; width: 100%; height: 100%; overflow: hidden}
     </style>
