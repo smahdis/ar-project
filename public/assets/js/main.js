@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('index', ar['video' + index]);
 
         let playVid = 'playVideo' + index;
-        let pauseVid = 'playVideo' + index;
+        let pauseVid = 'pauseVideo' + index;
 
         ar['anchor' + index].onTargetFound = window[playVid];
         ar['anchor' + index].onTargetLost = window[pauseVid];
