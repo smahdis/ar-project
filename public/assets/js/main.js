@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
 
-          return true;
+          return ar['video' + index].play();
       }
 //light is needed when we use 3D objects (δεν χρειάζεται το φως)
     //const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
