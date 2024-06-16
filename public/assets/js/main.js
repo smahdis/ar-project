@@ -27,14 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('index', ar['video' + index]);
 
-        ar['anchor' + index].onTargetFound = 'playVideo' + index;
+        ar['anchor' + index].onTargetFound = nameFunction("playVideo" + index, function (index) {
+            return ar['video' + index].play();
+        });
+        //'playVideo' + index;
         ar['anchor' + index].onTargetLost = 'playVideo' + index;
 
         function nameFunction(name, body) {
             return {[name](...args) {return body.apply(this, args)}}[name]
         }
 
-        const x = nameFunction("playVideo" + index, (index) => ar['video' + index].play())
+        const x = nameFunction("playVideo" + index, function (index) {
+            return ar['video' + index].play();
+        })
         // console.log(x(9)) // => 18
         // console.log(x.name) // => "wonderful function"
 
