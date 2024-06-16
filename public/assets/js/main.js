@@ -23,10 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
         ar['anchor' + index] = mindarThree.addAnchor(index);
 
         ar['anchor' + index].group.add(ar['plane' + index]);
+
+        console.log('index', ar['video' + index]);
+
         ar['anchor' + index].onTargetFound = () => {
             console.log('index', ar['video' + index]);
             console.log('geometry', ar['geometry' + index]);
             console.log('index', 'video' + index);
+            console.log('this', this);
             ar['video' + index].play();
         }
         ar['anchor' + index].onTargetLost = () => {
