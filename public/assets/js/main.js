@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let name = "playVideo" + index;
         let func = new Function(
-            "return function " + name + "(){ return ar['video' + index].play()}"
+            "return function " + name + "(){ return window.ar['video' + index].play()}"
         )();
 
         func();
