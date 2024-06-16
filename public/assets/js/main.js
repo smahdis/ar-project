@@ -26,8 +26,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('index', ar['video' + index]);
 
-        ar['anchor' + index].onTargetFound = playVideo;
-        ar['anchor' + index].onTargetLost = pauseVideo;
+        ar['anchor' + index].onTargetFound = 'playVideo' + index;
+        ar['anchor' + index].onTargetLost = 'playVideo' + index;
+
+        let name = "playVideo" + index;
+        let func = new Function(
+            "return function " + name + "(){ return ar['video' + index].play()}"
+        )();
+
+        func();
+
+        let name1 = "pauseVideo" + index;
+        let func1 = new Function(
+            "return function " + name1 + "(){ return ar['video' + index].pause()}"
+        )();
+
+        func1();
+
+        function pauseVideo (index){
+            return ar['video' + index].pause();
+        }
+        async function playVideo(index){
+            // console.log('index', index);
+            // console.log('video', ar['video' + index]);
+            // console.log('geometry', ar['geometry' + index]);
+            // console.log('video index', 'video' + index);
+            console.log('ar from inside', ar);
+            // console.log('video from inside', ar['video0']);
+            // try {
+            //     await ar['video' + index].play();
+            // } catch (e) {
+            //   console.log('video play failed');
+            // }
+
+
+            return ar['video' + index].play();
+        }
 
         // ar['video' + index].play();
         index = index +  1;
@@ -35,25 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.ar = ar;
     console.log('ar', ar);
 
-      function pauseVideo (index){
-          return ar['video' + index].pause();
-      }
-      async function playVideo(index){
-          // console.log('index', index);
-          // console.log('video', ar['video' + index]);
-          // console.log('geometry', ar['geometry' + index]);
-          // console.log('video index', 'video' + index);
-          console.log('ar from inside', ar);
-          // console.log('video from inside', ar['video0']);
-          // try {
-          //     await ar['video' + index].play();
-          // } catch (e) {
-          //   console.log('video play failed');
-          // }
 
-
-          return ar['video' + index].play();
-      }
 //light is needed when we use 3D objects (δεν χρειάζεται το φως)
     //const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
     //scene.add(light);
