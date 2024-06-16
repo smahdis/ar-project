@@ -18,6 +18,11 @@
                 console.log('index is', {{$key}});
                 window.ar['video' + {{$key}}].play();
             }
+
+        window['pauseVideo{{$key}}'] = function() {
+            {{--console.log('index is', {{$key}});--}}
+            window.ar['video' + {{$key}}].pause();
+        }
         @endforeach
 
         window.width_aspect = "{{$job->width_aspect}}";

@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let pauseVid = 'pauseVideo' + index;
 
         ar['anchor' + index].onTargetFound = window[playVid];
-        // ar['anchor' + index].onTargetLost = window[pauseVid];
+        ar['anchor' + index].onTargetLost = window[pauseVid];
 
         // window[playVid] = function() {
         //     console.log('index is', index);
