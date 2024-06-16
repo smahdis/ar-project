@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let name = "playVideo" + index;
         let func = new Function(
-            "return function " + name + "(){ return window.ar['video' + index].play()}"
+            "return function " + name + "(index){ return window.ar['video' + index].play()}"
         )(index);
 
         func(index);
 
         let name1 = "pauseVideo" + index;
         let func1 = new Function(
-            "return function " + name1 + "(){ return window.ar['video' + index].pause()}"
+            "return function " + name1 + "(index){ return window.ar['video' + index].pause()}"
         )(index);
 
         func1(index);
