@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       function pauseVideo (index){
           return ar['video' + index].pause();
       }
-      function playVideo async (index){
+      async function playVideo(index){
           // console.log('index', index);
           // console.log('video', ar['video' + index]);
           // console.log('geometry', ar['geometry' + index]);
