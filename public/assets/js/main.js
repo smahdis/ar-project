@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ar['anchor' + index].group.add(ar['plane' + index]);
         ar['anchor' + index].onTargetFound = () => {
             console.log('index', ar['video' + index]);
+            console.log('geometry', ar['geometry' + index]);
             console.log('index', 'video' + index);
             ar['video' + index].play();
         }
