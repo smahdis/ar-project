@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('index', ar['video' + index]);
 
-        ar['anchor' + index].onTargetFound = function (index){
+        ar['anchor' + index].onTargetFound = function (){
             console.log('index', index);
             console.log('video', ar['video' + index]);
             console.log('geometry', ar['geometry' + index]);
