@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // console.log('video', ar['video' + index]);
           // console.log('geometry', ar['geometry' + index]);
           // console.log('video index', 'video' + index);
-          // console.log('ar from inside', ar);
+          console.log('ar from inside', ar);
           // console.log('video from inside', ar['video0']);
           return ar['video' + index].play();
       }
