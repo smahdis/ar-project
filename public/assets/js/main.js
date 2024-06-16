@@ -45,7 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
           // console.log('video index', 'video' + index);
           console.log('ar from inside', ar);
           // console.log('video from inside', ar['video0']);
-          return ar['video' + index].play();
+          try {
+              ar['video' + index].play()
+          } catch () {
+            console.log('video play failed');
+          }
+
+
+          return true;
       }
 //light is needed when we use 3D objects (δεν χρειάζεται το φως)
     //const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
