@@ -13,6 +13,11 @@
                 width_aspect: {{$video->width_aspect}},
                 height_aspect: {{$video->height_aspect}}
             });
+
+            window['playVideo{{$key}}'] = function() {
+                console.log('index is', {{$key}});
+                window.ar['video' + {{$key}}].play();
+            }
         @endforeach
 
         window.width_aspect = "{{$job->width_aspect}}";

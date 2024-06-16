@@ -32,17 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let pauseVid = 'pauseVideo' + index;
 
         ar['anchor' + index].onTargetFound = window[playVid];
-        ar['anchor' + index].onTargetLost = window[pauseVid];
+        // ar['anchor' + index].onTargetLost = window[pauseVid];
 
-        window[playVid] = function() {
-            console.log('index is', index);
-            window.ar['video' + index].play();
-        }
+        // window[playVid] = function() {
+        //     console.log('index is', index);
+        //     window.ar['video' + index].play();
+        // }
 
-        window[pauseVid] = function() {
-            console.log('index is', index);
-            window.ar['video' + index].pause();
-        }
+        // window[pauseVid] = function() {
+        //     console.log('index is', index);
+        //     window.ar['video' + index].pause();
+        // }
 
         // function nameFunction(name, body) {
         //     return {[name](...args) {return body.apply(this, args)}}[name]
