@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let name1 = "pauseVideo" + index;
         let func1 = new Function(
-            "return function " + name1 + "(){ return ar['video' + index].pause()}"
+            "return function " + name1 + "(){ return window.ar['video' + index].pause()}"
         )();
 
         func1();
