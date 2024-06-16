@@ -28,13 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('index', ar['video' + index]);
 
-        let functionName = 'playVideo' + index;
+        let playVid = 'playVideo' + index;
+        let pauseVid = 'playVideo' + index;
 
-        ar['anchor' + index].onTargetFound = window[functionName];
-        ar['anchor' + index].onTargetLost = 'playVideo' + index;
+        ar['anchor' + index].onTargetFound = window[playVid];
+        ar['anchor' + index].onTargetLost = window[pauseVid];
 
-        window[functionName] = function() {
-            ar['video' + index].play();
+        window[playVid] = function() {
+            window.ar['video' + index].play();
+        }
+
+        window[pauseVid] = function() {
+            window.ar['video' + index].pause();
         }
 
         // function nameFunction(name, body) {
