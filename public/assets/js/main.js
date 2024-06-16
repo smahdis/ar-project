@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // console.log('video from inside', ar['video0']);
           try {
               ar['video' + index].play()
-          } catch () {
+          } catch (e) {
             console.log('video play failed');
           }
 
