@@ -27,9 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('index', ar['video' + index]);
 
         ar['anchor' + index].onTargetFound = playVideo(index);
-        ar['anchor' + index].onTargetLost = () => {
-            ar['video' + index].pause();
-        }
+        ar['anchor' + index].onTargetLost = pauseVideo(index);
 
         // ar['video' + index].play();
         index = index +  1;
@@ -37,14 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.ar = ar;
     console.log('ar', ar);
 
+      function pauseVideo (index){
+          return ar['video' + index].pause();
+      }
       function playVideo (index){
-          console.log('index', index);
-          console.log('video', ar['video' + index]);
-          console.log('geometry', ar['geometry' + index]);
-          console.log('video index', 'video' + index);
-          console.log('ar from inside', ar);
-          console.log('video from inside', ar['video0']);
-          ar['video' + index].play();
+          // console.log('index', index);
+          // console.log('video', ar['video' + index]);
+          // console.log('geometry', ar['geometry' + index]);
+          // console.log('video index', 'video' + index);
+          // console.log('ar from inside', ar);
+          // console.log('video from inside', ar['video0']);
+          return ar['video' + index].play();
       }
 //light is needed when we use 3D objects (δεν χρειάζεται το φως)
     //const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
