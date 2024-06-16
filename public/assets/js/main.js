@@ -35,10 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ar['anchor' + index].onTargetLost = window[pauseVid];
 
         window[playVid] = function() {
+            console.log('index is', index);
             window.ar['video' + index].play();
         }
 
         window[pauseVid] = function() {
+            console.log('index is', index);
             window.ar['video' + index].pause();
         }
 
