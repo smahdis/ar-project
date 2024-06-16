@@ -30,39 +30,47 @@ document.addEventListener('DOMContentLoaded', () => {
         ar['anchor' + index].onTargetFound = 'playVideo' + index;
         ar['anchor' + index].onTargetLost = 'playVideo' + index;
 
-        let name = "playVideo" + index;
-        let func = new Function(
-            "return function " + name + "(index){ return window.ar['video' + index].play()}"
-        )(index);
-
-        func(index);
-
-        let name1 = "pauseVideo" + index;
-        let func1 = new Function(
-            "return function " + name1 + "(index){ return window.ar['video' + index].pause()}"
-        )(index);
-
-        func1(index);
-
-        function pauseVideo (index){
-            return ar['video' + index].pause();
+        function nameFunction(name, body) {
+            return {[name](...args) {return body.apply(this, args)}}[name]
         }
-        async function playVideo(index){
-            // console.log('index', index);
-            // console.log('video', ar['video' + index]);
-            // console.log('geometry', ar['geometry' + index]);
-            // console.log('video index', 'video' + index);
-            console.log('ar from inside', ar);
-            // console.log('video from inside', ar['video0']);
-            // try {
-            //     await ar['video' + index].play();
-            // } catch (e) {
-            //   console.log('video play failed');
-            // }
 
+        const x = nameFunction("playVideo" + index, (index) => ar['video' + index].play())
+        // console.log(x(9)) // => 18
+        // console.log(x.name) // => "wonderful function"
 
-            return ar['video' + index].play();
-        }
+        // let name = "playVideo" + index;
+        // let func = new Function(
+        //     "return function " + name + "(index){ return window.ar['video' + index].play()}"
+        // )(index);
+        //
+        // func(index);
+        //
+        // let name1 = "pauseVideo" + index;
+        // let func1 = new Function(
+        //     "return function " + name1 + "(index){ return window.ar['video' + index].pause()}"
+        // )(index);
+        //
+        // func1(index);
+
+        // function pauseVideo (index){
+        //     return ar['video' + index].pause();
+        // }
+        // async function playVideo(index){
+        //     // console.log('index', index);
+        //     // console.log('video', ar['video' + index]);
+        //     // console.log('geometry', ar['geometry' + index]);
+        //     // console.log('video index', 'video' + index);
+        //     console.log('ar from inside', ar);
+        //     // console.log('video from inside', ar['video0']);
+        //     // try {
+        //     //     await ar['video' + index].play();
+        //     // } catch (e) {
+        //     //   console.log('video play failed');
+        //     // }
+        //
+        //
+        //     return ar['video' + index].play();
+        // }
 
         // ar['video' + index].play();
         index = index +  1;
