@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('index', ar['video' + index]);
 
-        ar['anchor' + index].onTargetFound = nameFunction("playVideo" + index, function (index) {
+        ar['anchor' + index].onTargetFound = nameFunction("playVideo" + index, function (ar, index) {
             return ar['video' + index].play();
         });
         //'playVideo' + index;
