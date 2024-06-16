@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let ar = [];
     let index = 0;
+  window.ar = ar;
     for (const media of window.mediaFiles) {
         // const index = window.mediaFiles.indexOf(media.media_file);
         ar['video' + index] = await loadVideo(media.media_file);
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // ar['video' + index].play();
         index = index +  1;
     }
-    window.ar = ar;
+
     console.log('ar', ar);
 
 
