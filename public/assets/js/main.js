@@ -38,7 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return ar['video' + index].play();
         });
 
-        x();
+        // console.log('playVideo' + index);
+        video0();
+        // x();
         // console.log(x(9)) // => 18
         // console.log(x.name) // => "wonderful function"
 
