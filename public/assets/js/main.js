@@ -38,16 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
       function pauseVideo (index){
           return ar['video' + index].pause();
       }
-      function playVideo (index){
+      function playVideo async (index){
           // console.log('index', index);
           // console.log('video', ar['video' + index]);
           // console.log('geometry', ar['geometry' + index]);
           // console.log('video index', 'video' + index);
           console.log('ar from inside', ar);
           // console.log('video from inside', ar['video0']);
-          return ar['video' + index].play().catch(function(error) {
-              console.log(error);
-          });
+          try {
+              await ar['video' + index].play();
+          } catch (e) {
+            console.log('video play failed');
+          }
 
 
           return true;
